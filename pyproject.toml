@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "humanresponsebot"
+version = "0.1.0"
+description = ""
+authors = ["ani <125677472+anilev6@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+python-telegram-bot = "^20.1"
+python-dotenv = "^1.0.1"
+mongopersistence = "^0.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
