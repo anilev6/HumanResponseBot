@@ -19,4 +19,4 @@ def clean_words_belong_json(json_filename):
 
 
 if __name__=="__main__":
-    clean_words_belong_json("WordLengthComparisonbl.json")
+    clean_words_belong_json("WordsAlphabetOrder-bl.json")

@@ -13,8 +13,8 @@ import settings
 from mylogging import logger, time_log_decorator
 
 
-CLEAN_DATA_FILE_PATH = "CleanWordLengthComparisonbl.json"
-PROCESSED_DATA_FILE_PATH = "HumanProcessedWordLengthComparisonbl.json"
+CLEAN_DATA_FILE_PATH = "CleanWordsAlphabetOrder-bl.json"
+PROCESSED_DATA_FILE_PATH = "HumanProcessedWordsAlphabetOrder-bl.json"
 
 QUESTIONS_DONE_MESSAGE = "Ура, всі завдання виконано! Дякую."
 ADMIN_DONE_MESSAGE = "Все!"
