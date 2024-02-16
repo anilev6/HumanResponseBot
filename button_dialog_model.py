@@ -23,7 +23,7 @@ INPUT_TEXT_MESSAGE = "Please write something:"
 BUTTON_TEXT = "Click Me"
 KEYBOAD_TEXT = "Please choose:"
 BUTTON_REPLY_MESSAGE = "Received your input: {}"
-MUTE_TEXT = "🎰"
+MUTE_TEXT = "🏀"
 
 
 def get_mute_text_emoji():
@@ -51,31 +51,6 @@ async def send_keyboard(
     # message_id = context.chat_data.get("last_keyboard_message_id")
 
     if text:
-        # # Check if we have a message ID for the current chat's start menu
-        # if update.callback_query and message_id:
-        #     # Edit the existing start menu message
-        #     await update.callback_query.answer()
-        #     try:
-        #         await context.bot.edit_message_text(
-        #             chat_id=chat_id,
-        #             message_id=message_id,
-        #             text=text,
-        #             reply_markup=keyboard,
-        #             parse_mode=parse_mode,
-        #         )
-        #     except (
-        #         TelegramError
-        #     ) as e:  # Message is not modified: specified new message content and reply markup are exactly the same as a current content and reply markup
-        #         await context.bot.edit_message_text(
-        #             chat_id=chat_id,
-        #             message_id=message_id,
-        #             text=f"{text}\u200B",
-        #             reply_markup=keyboard,
-        #             parse_mode=parse_mode,
-        #         )
-        #         logger.error(f"TelegramError in send_keyboard: {e}")
-
-        # else:
         # Mute a previous active window so only one active window can be in a chat
         await mute_last_active_keybpard(update, context)
 

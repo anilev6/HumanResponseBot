@@ -72,9 +72,23 @@ def prepare_questions(context):
 def get_options_from_question(question: str):
     question = question.get("question")
     question = question.replace("?", "")
-    question = question.replace('\"', "")
-    question, options = question.split(":")
-    op_list = [w.strip() for w in options.split(" чи ")]
+
+    if question.startswith("Серед"):
+        question = question.replace("'", "")
+        question = question.replace("Серед ", "")
+        options, question = question.split(",")
+        print(options, question)
+        question = question.strip().capitalize()
+        op_list = (
+            [w.strip() for w in options.split(" і ")]
+            if " і " in options
+            else [w.strip() for w in options.split(" та ")]
+        )
+    else:
+        question = question.replace('"', "")
+        question, options = question.split(":")
+        print(options, question)
+        op_list = [w.strip() for w in options.split(" чи ")]
     return question, op_list
 
 
