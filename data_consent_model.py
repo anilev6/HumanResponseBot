@@ -11,11 +11,11 @@ import handlers
 
 # Constants
 PARSE_MODE = "MarkdownV2"
-CONFIRM_QUESTION_TEXT = "*Продовжуючи\, ви надаєте згоду на збір та обробку деяких ваших персональних даних\.*"
+DATA_POLICY = "*Продовжуючи\, ви надаєте згоду на збір та обробку деяких ваших персональних даних\.*"
 CONFIRM_TEXT = "Ви надали свою згоду на збір та обробку даних\, *дякую*\."
 NOT_CONFIRM_TEXT = "🙊🙉🙈"
-CONFIRM_BUTTON = "Продовжити"
-EXIT_BUTTON = "Вийти"
+CONFIRM_BUTTON = "Продовжити / Continue"
+EXIT_BUTTON = "Вийти / Exit"
 
 # States
 DATA_CONSENT = 0 # reserved state
@@ -23,13 +23,18 @@ DATA_CONSENT = 0 # reserved state
 
 @command_handler
 async def start(update: Update, context: CallbackContext):
+    if "data_policy" not in context.bot_data:
+        context.bot_data["data_policy"] = DATA_POLICY
+
     if "data_consent" not in context.user_data:
         keyboard = [
             [InlineKeyboardButton(CONFIRM_BUTTON, callback_data="data_consent")],
             [InlineKeyboardButton(EXIT_BUTTON, callback_data="not_data_consent")],
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
-        return await update.message.reply_text(text=CONFIRM_QUESTION_TEXT, reply_markup=reply_markup, parse_mode=PARSE_MODE)
+        return await update.message.reply_text(
+            text=DATA_POLICY, reply_markup=reply_markup, parse_mode=PARSE_MODE
+        )
 
 
 def get_user_full_tg_info(user) -> dict:
