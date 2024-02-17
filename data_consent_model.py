@@ -1,10 +1,5 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import (
-    CallbackContext,
-    ConversationHandler,
-    CallbackQueryHandler,
-    CommandHandler,
-)
+from telegram.ext import CallbackContext
 
 from datetime import datetime
 
@@ -12,8 +7,6 @@ from callback_handlers import callback_handler
 from command_handlers import command_handler
 
 import handlers
-
-from button_dialog_model import send_keyboard
 
 
 # Constants
@@ -42,12 +35,12 @@ async def start(update: Update, context: CallbackContext):
 def get_user_full_tg_info(user) -> dict:
     # Gather user info from telegram user object
     user_info = {
+        "is_bot": user.is_bot,
         "signed_at": datetime.now(),
         "tg_username": f"@{user.username}" if user.username else "None",
         "tg_first_name": f"{user.first_name}" if user.first_name else "None",
         "tg_last_name": f"{user.last_name}" if user.last_name else "None",
         "tg_language": f"{user.language_code}" if user.language_code else "None",
-        "is_bot": user.is_bot,
     }
     return user_info
 

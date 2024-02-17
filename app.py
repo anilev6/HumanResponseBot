@@ -7,7 +7,7 @@ from settings import MONGO_URL, TG_BOT_TOKEN
 # -------------------------------------------TELEGRAM BOT DB------------------------------
 persistence = MongoPersistence(
     mongo_url=MONGO_URL,
-    db_name="language-quiz-bot-database",
+    db_name="human-response-language-quiz-bot-database",
     name_col_user_data="user-data-collection",
     name_col_chat_data="chat-data-collection",
     name_col_bot_data="bot-data-collection",
