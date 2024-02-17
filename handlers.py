@@ -2,7 +2,6 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import CallbackContext
 
 from callback_handlers import callback_handler
-from command_handlers import command_handler
 
 from datetime import datetime
 import json
@@ -44,19 +43,17 @@ def get_user_full_tg_info(user) -> dict:
         "tg_first_name": f"{user.first_name}" if user.first_name else "None",
         "tg_last_name": f"{user.last_name}" if user.last_name else "None",
         "tg_language": f"{user.language_code}" if user.language_code else "None",
+        "is_bot": user.is_bot,
     }
     return user_info
 
 
 @time_log_decorator
-@command_handler
 async def start(update: Update, context: CallbackContext):
-    if not context.user_data.get("info"): # one time command
-        context.user_data["info"] = get_user_full_tg_info(update.effective_user)
-        current_questions = context.bot_data.get("current_questions")
-        if current_questions is None:  # first time a user starts
-            prepare_questions(context)
-        return await continue_quiz(update, context)
+    current_questions = context.bot_data.get("current_questions")
+    if current_questions is None:  # first user starts
+        prepare_questions(context)
+    return await continue_quiz(update, context)
 
 
 @time_log_decorator
@@ -77,7 +74,6 @@ def get_options_from_question(question: str):
         question = question.replace("'", "")
         question = question.replace("Серед ", "")
         options, question = question.split(",")
-        print(options, question)
         question = question.strip().capitalize()
         op_list = (
             [w.strip() for w in options.split(" і ")]
@@ -87,7 +83,6 @@ def get_options_from_question(question: str):
     else:
         question = question.replace('"', "")
         question, options = question.split(":")
-        print(options, question)
         op_list = [w.strip() for w in options.split(" чи ")]
     return question, op_list
 
