@@ -9,7 +9,6 @@ from telegram.ext import (
     MessageHandler,
     filters,
 )
-from telegram.error import TelegramError
 
 import random
 
@@ -48,7 +47,6 @@ async def send_keyboard(
     parse_mode=None,
 ):
     chat_id = update.effective_chat.id
-    # message_id = context.chat_data.get("last_keyboard_message_id")
 
     if text:
         # Mute a previous active window so only one active window can be in a chat
