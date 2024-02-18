@@ -8,6 +8,7 @@ def get_secret_by_name(name: str):
 
 # MongoDB
 MONGO_URL = get_secret_by_name("MONGO_URL")
+MONGO_DB_NAME = get_secret_by_name("MONGO_DB_NAME")
 
 # TG creds
 TG_BOT_TOKEN = get_secret_by_name("TG_BOT_TOKEN")

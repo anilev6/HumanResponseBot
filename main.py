@@ -3,8 +3,10 @@ import contextlib
 from command_handlers import add_command_handlers
 from callback_handlers import add_callback_handlers
 
+import data_consent_model
 from handlers import error
 from app import application
+
 
 def telegram_bot(application):
 
