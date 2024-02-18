@@ -7,10 +7,11 @@ def clean_words_belong_json(json_filename):
 
     for instance in original_json:
         simplified_instance = {
+            "context": instance["context"],
             "question": instance["question"],
-            "correctAnswer": instance["correctAnswer"],
-            "additionalMetadata_options": instance["additionalMetadata_options"],
-            "additionalMetadata_id": instance["additionalMetadata_id"],
+            "answer": instance["answer"],
+            "options_list": instance["options_list"],
+            "id": instance["id"],
         }
         simplified_json["instances"].append(simplified_instance)
 
@@ -21,4 +22,4 @@ def clean_words_belong_json(json_filename):
 
 
 if __name__=="__main__":
-    clean_words_belong_json("WISTask-bl.json")
+    clean_words_belong_json("ua_cbt_v0_1_clean_humaneval.json")

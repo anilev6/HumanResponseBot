@@ -13,8 +13,8 @@ import settings
 from mylogging import logger, time_log_decorator
 
 
-CLEAN_DATA_FILE_PATH = "CleanWISTask-bl.json"
-PROCESSED_DATA_FILE_PATH = "HumanProcessedWISTask-bl.json"
+CLEAN_DATA_FILE_PATH = "Cleanua_cbt_v0_1_clean_humaneval.json"
+PROCESSED_DATA_FILE_PATH = "HumanProcessedua_cbt_v0_1_clean_humaneval.json"
 
 QUESTIONS_DONE_MESSAGE = "Ура, всі завдання виконано! Дякую."
 ADMIN_DONE_MESSAGE = "Все!"
@@ -68,8 +68,8 @@ def prepare_questions(context):
 @time_log_decorator
 def get_options_from_question(question: str):
 
-    op_list = question.get("additionalMetadata_options")
-    question = question.get("question")
+    op_list = question.get("options_list")
+    question = question.get("context") + "\n\n❓QUESTION:\n\n" + question.get("question")
 
     shuffle(op_list)
 
@@ -125,7 +125,7 @@ async def click_item(update: Update, context: CallbackContext):
         data = data.replace("click_item_", "")
 
     current_question = context.user_data.pop("current_question")
-    current_question["humanAnswer"] = data.strip()
+    current_question["human_answer"] = data.strip()
     context.bot_data["current_answers"].append(current_question)
 
     if not context.user_data.get("logs"):
