@@ -43,7 +43,7 @@ async def start(update: Update, context: CallbackContext):
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
         return await update.message.reply_text(
-            text=DATA_POLICY, reply_markup=reply_markup, parse_mode=PARSE_MODE
+            text=DATA_POLICY, reply_markup=reply_markup, parse_mode=PARSE_MODE, disable_web_page_preview=True
         )
 
 
