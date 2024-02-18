@@ -13,12 +13,12 @@ import handlers
 PARSE_MODE = "MarkdownV2"
 DATA_POLICY = """
 *By clicking "Continue" below\, 
-you confirm that you have read the [consent form](https://github.com/anilev6/HumanResponseBot/blob/WordsAlphabet/ConsentForm_v1.pdf)\, 
+you confirm that you have read the [consent form](https://github.com/anilev6/HumanResponseBot/blob/LOWTask/ConsentForm_v2.pdf)\, 
 understand your rights\, and agree to participate under those terms\.* 
 You can withdraw at any time without any consequences\.\n\n
 \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\n\n
 *Натискаючи на "Продовжити"\, 
-ви підтверджуєте\, що прочитали [форму згоди](https://github.com/anilev6/HumanResponseBot/blob/WordsAlphabet/ConsentForm_v1.pdf)\, 
+ви підтверджуєте\, що прочитали [форму згоди](https://github.com/anilev6/HumanResponseBot/blob/LOWTask/ConsentForm_v2.pdf)\, 
 розумієте свої права\, приймаєте умови та погоджуєтеся брати участь\.*  
 Ви можете відмовитися в будь\-який час без будь\-яких наслідків\.
 """
