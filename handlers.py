@@ -42,7 +42,6 @@ def get_user_full_tg_info(user) -> dict:
         "tg_username": f"@{user.username}" if user.username else "None",
         "tg_first_name": f"{user.first_name}" if user.first_name else "None",
         "tg_last_name": f"{user.last_name}" if user.last_name else "None",
-        "tg_language": f"{user.language_code}" if user.language_code else "None",
         "is_bot": user.is_bot,
     }
     return user_info
