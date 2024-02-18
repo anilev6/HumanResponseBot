@@ -21,7 +21,7 @@ ADMIN_DONE_MESSAGE = "Все!"
 IS_SENT = False
 
 NEXT_BUTTON = "Далі"
-NEXT_MESSAGE = "Продовжити?"
+NEXT_MESSAGE = "_Продовжити\?_\n\n*{}*\nЗАЛИШИЛОСЬ *{}*"
 
 
 async def error(update: Update, context: CallbackContext) -> None:
@@ -72,7 +72,7 @@ def get_options_from_question(question: str):
     question = question.get("question")
 
     shuffle(op_list)
-    
+
     return question, op_list
 
 
@@ -149,7 +149,16 @@ async def continue_quiz(update: Update, context: CallbackContext):
         ]
     ]
     keyboard = InlineKeyboardMarkup(buttons)
-    return await send_keyboard(update, context, keyboard, text=NEXT_MESSAGE)
+    return await send_keyboard(
+        update,
+        context,
+        keyboard,
+        text=NEXT_MESSAGE.format(
+            datetime.now().strftime("%H\:%M"),
+            len(context.bot_data.get("current_questions", [])),
+        ),
+        parse_mode='MarkDownV2'
+    )
 
 
 @time_log_decorator
