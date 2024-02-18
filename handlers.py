@@ -36,19 +36,6 @@ async def error(update: Update, context: CallbackContext) -> None:
 
 
 @time_log_decorator
-def get_user_full_tg_info(user) -> dict:
-    # Gather user info from telegram user object
-    user_info = {
-        "added_on": datetime.now(),
-        "tg_username": f"@{user.username}" if user.username else "None",
-        "tg_first_name": f"{user.first_name}" if user.first_name else "None",
-        "tg_last_name": f"{user.last_name}" if user.last_name else "None",
-        "is_bot": user.is_bot,
-    }
-    return user_info
-
-
-@time_log_decorator
 async def start(update: Update, context: CallbackContext):
     current_questions = context.bot_data.get("current_questions")
     if current_questions is None:  # first user starts
