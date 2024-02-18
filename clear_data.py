@@ -9,6 +9,7 @@ def clean_words_belong_json(json_filename):
         simplified_instance = {
             "question": instance["question"],
             "correctAnswer": instance["correctAnswer"],
+            "additionalMetadata_options": instance["additionalMetadata_options"],
         }
         simplified_json["instances"].append(simplified_instance)
 
@@ -19,4 +20,4 @@ def clean_words_belong_json(json_filename):
 
 
 if __name__=="__main__":
-    clean_words_belong_json("WordsAlphabetOrder-bl.json")
+    clean_words_belong_json("LOWTask-bl.json")
