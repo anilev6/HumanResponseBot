@@ -1,14 +1,14 @@
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
-load_dotenv()
+# load_dotenv()
 
 def get_secret_by_name(name: str):
-    print(os.getenv(name))
     return os.getenv(name)
 
 # MongoDB
 MONGO_URL = get_secret_by_name("MONGO_URL")
+MONGO_DB_NAME = get_secret_by_name("MONGO_DB_NAME")
 
 # TG creds
 TG_BOT_TOKEN = get_secret_by_name("TG_BOT_TOKEN")
