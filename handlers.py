@@ -13,8 +13,8 @@ import settings
 from mylogging import logger, time_log_decorator
 
 
-CLEAN_DATA_FILE_PATH = "CleanLOWTask-bl.json"
-PROCESSED_DATA_FILE_PATH = "HumanProcessedLOWTask-bl.json"
+CLEAN_DATA_FILE_PATH = "CleanWISTask-bl.json"
+PROCESSED_DATA_FILE_PATH = "HumanProcessedWISTask-bl.json"
 
 QUESTIONS_DONE_MESSAGE = "Ура, всі завдання виконано! Дякую."
 ADMIN_DONE_MESSAGE = "Все!"
