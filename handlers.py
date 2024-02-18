@@ -5,6 +5,7 @@ from callback_handlers import callback_handler
 
 from datetime import datetime
 import json
+from random import shuffle
 
 from button_dialog_model import send_keyboard
 import settings
@@ -67,9 +68,11 @@ def prepare_questions(context):
 @time_log_decorator
 def get_options_from_question(question: str):
 
-    op_list = question.get("question")
-    question = question.get("additionalMetadata_options")
+    op_list = question.get("additionalMetadata_options")
+    question = question.get("question")
 
+    shuffle(op_list)
+    
     return question, op_list
 
 
@@ -98,7 +101,6 @@ async def next(update: Update, context: CallbackContext):
     context.user_data["current_question"] = raw_question
 
     question, options = get_options_from_question(raw_question)
-    question += '?'
     buttons = [
         [
             InlineKeyboardButton(
