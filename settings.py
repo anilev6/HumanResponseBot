@@ -1,9 +1,10 @@
 import os
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 
-# load_dotenv()
+load_dotenv()
 
 def get_secret_by_name(name: str):
+    print(os.getenv(name))
     return os.getenv(name)
 
 # MongoDB

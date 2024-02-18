@@ -12,8 +12,8 @@ import settings
 from mylogging import logger, time_log_decorator
 
 
-CLEAN_DATA_FILE_PATH = "CleanWordsAlphabetOrder-bl.json"
-PROCESSED_DATA_FILE_PATH = "HumanProcessedWordsAlphabetOrder-bl.json"
+CLEAN_DATA_FILE_PATH = "CleanLOWTask-bl.json"
+PROCESSED_DATA_FILE_PATH = "HumanProcessedLOWTask-bl.json"
 
 QUESTIONS_DONE_MESSAGE = "Ура, всі завдання виконано! Дякую."
 ADMIN_DONE_MESSAGE = "Все!"
@@ -66,23 +66,10 @@ def prepare_questions(context):
 
 @time_log_decorator
 def get_options_from_question(question: str):
-    question = question.get("question")
-    question = question.replace("?", "")
 
-    if question.startswith("Серед"):
-        question = question.replace("'", "")
-        question = question.replace("Серед ", "")
-        options, question = question.split(",")
-        question = question.strip().capitalize()
-        op_list = (
-            [w.strip() for w in options.split(" і ")]
-            if " і " in options
-            else [w.strip() for w in options.split(" та ")]
-        )
-    else:
-        question = question.replace('"', "")
-        question, options = question.split(":")
-        op_list = [w.strip() for w in options.split(" чи ")]
+    op_list = question.get("question")
+    question = question.get("additionalMetadata_options")
+
     return question, op_list
 
 

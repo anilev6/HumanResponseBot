@@ -10,6 +10,7 @@ def clean_words_belong_json(json_filename):
             "question": instance["question"],
             "correctAnswer": instance["correctAnswer"],
             "additionalMetadata_options": instance["additionalMetadata_options"],
+            "additionalMetadata_id": instance["additionalMetadata_id"],
         }
         simplified_json["instances"].append(simplified_instance)
 
