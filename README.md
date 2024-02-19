@@ -4,7 +4,7 @@ The Human Response Bot is a specialized framework designed for the collection of
 This approach can be particularly useful in the development phases of large language models (LLMs),
 where it's critical to gather human-generated solutions to the same problems the model will eventually tackle.
 
-<video src="3.mp4" autoplay loop muted playsinline></video>
+![gif]("3.gif")
 
 The user presses `/start`, accepts [Terms and Conditions](ConsentForm_v2.pdf), and receives a one-button menu with the number of tasks left. After pressing the button, a task appears. Once the task is answered, the menu appears again. This cycle continues until all tasks are completed.
 The single button menu design allows users to safely exit the chat after completing any task without leaving the conversation in an unresolved state.
