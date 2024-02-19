@@ -12,8 +12,8 @@ import settings
 from mylogging import logger, time_log_decorator
 
 
-CLEAN_DATA_FILE_PATH = "CleanDoAllWordsBelongToCatTask.json"
-PROCESSED_DATA_FILE_PATH = "HumanProcessedDoAllWordsBelongToCatTask.json"
+CLEAN_DATA_FILE_PATH = "CleanWhichWordWrongCatTask.json"
+PROCESSED_DATA_FILE_PATH = "HumanProcessedWhichWordWrongCatTask.json"
 
 QUESTIONS_DONE_MESSAGE = "Ура, всі завдання виконано! Дякую."
 ADMIN_DONE_MESSAGE = "Все!"
@@ -54,7 +54,10 @@ def prepare_questions(context):
 @time_log_decorator
 def get_options_from_question(question: str):
     question = question.get("question")
-    return question, [True, False]
+    question = question.replace(".", "")
+    question, options = question.split(":")
+    op_list = options.split(",")
+    return question, op_list
 
 
 @time_log_decorator
@@ -85,16 +88,11 @@ async def next(update: Update, context: CallbackContext):
     buttons = [
         [
             InlineKeyboardButton(
-                'Так',
-                callback_data=f"click_item_1",
-            )
-        ],
-        [
-            InlineKeyboardButton(
-                'Ні',
-                callback_data=f"click_item_0",
+                option,
+                callback_data=f"click_item_{option}",
             )
         ]
+        for option in options
     ]
     keyboard = InlineKeyboardMarkup(buttons)
     return await send_keyboard(update, context, keyboard, text=question)
@@ -111,7 +109,7 @@ async def click_item(update: Update, context: CallbackContext):
         data = data.replace("click_item_", "")
 
     current_question = context.user_data.pop("current_question")
-    current_question["humanAnswer"] = True if data.strip() == '1' else False
+    current_question["humanAnswer"] = data.strip()
     context.bot_data["current_answers"].append(current_question)
 
     if not context.user_data.get("logs"):

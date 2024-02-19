@@ -21,4 +21,4 @@ def clean_words_belong_json(json_filename):
 
 
 if __name__=="__main__":
-    clean_words_belong_json("DoAllWordsBelongToCatTask.json")
+    clean_words_belong_json("WhichWordWrongCatTask.json")
