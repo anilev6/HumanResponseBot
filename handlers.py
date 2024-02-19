@@ -5,7 +5,6 @@ from callback_handlers import callback_handler
 
 from datetime import datetime
 import json
-from random import shuffle
 
 from button_dialog_model import send_keyboard
 import settings
@@ -13,8 +12,8 @@ import settings
 from mylogging import logger, time_log_decorator
 
 
-CLEAN_DATA_FILE_PATH = "Cleanua_cbt_v0_1_clean_humaneval.json"
-PROCESSED_DATA_FILE_PATH = "HumanProcessedua_cbt_v0_1_clean_humaneval.json"
+CLEAN_DATA_FILE_PATH = "CleanDoAllWordsBelongToCatTask.json"
+PROCESSED_DATA_FILE_PATH = "HumanProcessedDoAllWordsBelongToCatTask.json"
 
 QUESTIONS_DONE_MESSAGE = "Ура, всі завдання виконано! Дякую."
 ADMIN_DONE_MESSAGE = "Все!"
@@ -36,19 +35,6 @@ async def error(update: Update, context: CallbackContext) -> None:
 
 
 @time_log_decorator
-def get_user_full_tg_info(user) -> dict:
-    # Gather user info from telegram user object
-    user_info = {
-        "added_on": datetime.now(),
-        "tg_username": f"@{user.username}" if user.username else "None",
-        "tg_first_name": f"{user.first_name}" if user.first_name else "None",
-        "tg_last_name": f"{user.last_name}" if user.last_name else "None",
-        "is_bot": user.is_bot,
-    }
-    return user_info
-
-
-@time_log_decorator
 async def start(update: Update, context: CallbackContext):
     current_questions = context.bot_data.get("current_questions")
     if current_questions is None:  # first user starts
@@ -67,13 +53,8 @@ def prepare_questions(context):
 
 @time_log_decorator
 def get_options_from_question(question: str):
-
-    op_list = question.get("options_list")
-    question = question.get("context") + "\n\n❓QUESTION:\n\n" + question.get("question")
-
-    shuffle(op_list)
-
-    return question, op_list
+    question = question.get("question")
+    return question, [True, False]
 
 
 @time_log_decorator
@@ -104,11 +85,16 @@ async def next(update: Update, context: CallbackContext):
     buttons = [
         [
             InlineKeyboardButton(
-                option,
-                callback_data=f"click_item_{option}",
+                'Так',
+                callback_data=f"click_item_1",
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                'Ні',
+                callback_data=f"click_item_0",
             )
         ]
-        for option in options
     ]
     keyboard = InlineKeyboardMarkup(buttons)
     return await send_keyboard(update, context, keyboard, text=question)
@@ -125,7 +111,7 @@ async def click_item(update: Update, context: CallbackContext):
         data = data.replace("click_item_", "")
 
     current_question = context.user_data.pop("current_question")
-    current_question["human_answer"] = data.strip()
+    current_question["humanAnswer"] = True if data.strip() == '1' else False
     context.bot_data["current_answers"].append(current_question)
 
     if not context.user_data.get("logs"):
