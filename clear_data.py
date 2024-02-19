@@ -1,5 +1,6 @@
 import json
 
+
 def clean_words_belong_json(json_filename):
     with open(json_filename, "r", encoding="utf-8") as file:
         original_json = json.load(file)
@@ -7,11 +8,9 @@ def clean_words_belong_json(json_filename):
 
     for instance in original_json:
         simplified_instance = {
-            "context": instance["context"],
             "question": instance["question"],
-            "answer": instance["answer"],
-            "options_list": instance["options_list"],
-            "id": instance["id"],
+            "correctAnswer": instance["correctAnswer"],
+            "additionalMetadata_id": instance["additionalMetadata_id"],
         }
         simplified_json["instances"].append(simplified_instance)
 
@@ -22,4 +21,4 @@ def clean_words_belong_json(json_filename):
 
 
 if __name__=="__main__":
-    clean_words_belong_json("ua_cbt_v0_1_clean_humaneval.json")
+    clean_words_belong_json("DoAllWordsBelongToCatTask.json")
