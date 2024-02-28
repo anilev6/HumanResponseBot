@@ -13,8 +13,8 @@ import settings
 from mylogging import logger, time_log_decorator
 
 
-CLEAN_DATA_FILE_PATH = "CleanLOWTask-bl.json"
-PROCESSED_DATA_FILE_PATH = "HumanProcessedLOWTask-bl.json"
+CLEAN_DATA_FILE_PATH = "CleanUp_titles.json"
+PROCESSED_DATA_FILE_PATH = "HumanProcessedUp_titles.json"
 
 QUESTIONS_DONE_MESSAGE = "Ура, всі завдання виконано! Дякую."
 ADMIN_DONE_MESSAGE = "Все!"
@@ -55,12 +55,12 @@ def prepare_questions(context):
 @time_log_decorator
 def get_options_from_question(question: str):
 
-    op_list = question.get("additionalMetadata_options")
-    question = question.get("question")
+    options = question.get("similar_titles_unmasked")
+    question = question.get("ukr_text")
 
-    shuffle(op_list)
+    shuffle(options)
 
-    return question, op_list
+    return question, options
 
 
 @time_log_decorator
@@ -88,14 +88,15 @@ async def next(update: Update, context: CallbackContext):
     context.user_data["current_question"] = raw_question
 
     question, options = get_options_from_question(raw_question)
+    question += "\n\nЯкий заголовок найбільше підходить?"
     buttons = [
         [
             InlineKeyboardButton(
                 option,
-                callback_data=f"click_item_{option}",
+                callback_data=f"click_item_{i}",
             )
         ]
-        for option in options
+        for i, option in enumerate(options)
     ]
     keyboard = InlineKeyboardMarkup(buttons)
     return await send_keyboard(update, context, keyboard, text=question)
@@ -112,7 +113,9 @@ async def click_item(update: Update, context: CallbackContext):
         data = data.replace("click_item_", "")
 
     current_question = context.user_data.pop("current_question")
-    current_question["humanAnswer"] = data.strip()
+    current_question["human_title"] = current_question["similar_titles_unmasked"][
+        int(data.strip())
+    ]
     context.bot_data["current_answers"].append(current_question)
 
     if not context.user_data.get("logs"):
