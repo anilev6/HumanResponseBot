@@ -7,10 +7,11 @@ def clean_words_belong_json(json_filename):
 
     for instance in original_json:
         simplified_instance = {
-            "question": instance["question"],
-            "correctAnswer": instance["correctAnswer"],
-            "additionalMetadata_options": instance["additionalMetadata_options"],
-            "additionalMetadata_id": instance["additionalMetadata_id"],
+            "index": instance["index"],
+            "old_index": instance["old_index"],
+            "ukr_text": instance["ukr_text"],
+            "ukr_title": instance["ukr_title"],
+            "similar_titles_unmasked": eval(instance["similar_titles_unmasked"]),
         }
         simplified_json["instances"].append(simplified_instance)
 
@@ -21,4 +22,4 @@ def clean_words_belong_json(json_filename):
 
 
 if __name__=="__main__":
-    clean_words_belong_json("LOWTask-bl.json")
+    clean_words_belong_json("Up_titles.json")
