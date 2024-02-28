@@ -16,6 +16,8 @@ The admin can additionally export logs and other documents from MongoDB, or any 
 
 ## Usage
 
+> **!NOTICE:** The same MIT License from this branch applies to all the branches.
+
 To leverage the Human Response Bot for your data collection needs, ensure you have the following prerequisites:
 
 - A structured task database in .json format.
